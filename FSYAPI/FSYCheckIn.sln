@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateAPI", "TemplateAPI.csproj", "{B15C47EF-A7A1-4D38-A11B-A14E8FAB6959}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSYCheckIn", "FSYCheckIn.csproj", "{B15C47EF-A7A1-4D38-A11B-A14E8FAB6959}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
