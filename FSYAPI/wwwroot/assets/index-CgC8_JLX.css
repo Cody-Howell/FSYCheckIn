@@ -1,0 +1,1 @@
+body,html{padding:0;margin:0 0 10%;font-family:Inter,sans-serif;color-scheme:light dark;color:#ffffffde;background-color:#242424}#app{display:grid;height:100vh;grid-template-columns:100px 1fr}#sidebar{border-right:1px solid white;padding:25px 0 0 10px;align-items:center}#sidebar a{color:#fff}#page{padding-left:10px}

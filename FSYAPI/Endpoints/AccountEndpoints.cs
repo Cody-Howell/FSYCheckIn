@@ -5,7 +5,13 @@ namespace FSYCheckIn.Endpoints;
 
 public static class AccountEndpoints {
     public static WebApplication AddAccountEndpoints(this WebApplication app) {
-        app.MapGet("/api/valid", (AuthService service) => Results.Ok());
+        // Returns int role of the user.
+        app.MapGet("/api/valid", (HttpContext context, AuthService service) => { 
+            string username = context.Request.Headers["Account-Auth-Account"]!;
+            Account user = service.GetUser(username);
+
+            return Results.Ok(user.Role); 
+        });
         app.MapPost("/api/signin/create", (HttpContext context, AuthService service, string accountName) => {
             string username = context.Request.Headers["Account-Auth-Account"]!;
 

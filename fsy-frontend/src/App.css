@@ -17,5 +17,14 @@ html {
 }
 
 #sidebar {
-  
+  border-right: 1px solid white;
+  padding: 25px 0 0 10px;
+  align-items: center;
+}
+#sidebar a {
+  color: white;
+}
+
+#page {
+  padding-left: 10px;
 }

@@ -3,8 +3,10 @@ import './App.css'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { SignIn } from './components/SignIn'
 import { Home } from './components/Home'
+import { getRole, isValid } from './api'
+import { getSavedAuth, saveAuth } from './pers'
 
-class App extends React.Component<Record<string, never>, { auth: Auth, level: number }> {
+class App extends React.Component<Record<string, never>, { auth: Auth, role: number }> {
   constructor(props: Record<string, never>) {
     super(props);
     this.state = {
@@ -12,19 +14,30 @@ class App extends React.Component<Record<string, never>, { auth: Auth, level: nu
         name: "",
         key: ""
       },
-      level: 0
+      role: 0
     }
   }
 
-  updateAuth = (obj: Auth): void => {
-    console.log(obj);
+  async componentDidMount(): Promise<void> {
+    const value: { auth: Auth, role: number } = getSavedAuth();
+    if (await isValid(value.auth)) {
+      this.setState(value);
+    }
+  }
+
+  updateAuth = async (obj: Auth): Promise<void> => {
+    const role: number = await getRole(obj);
+
     this.setState((prevState) => ({
       auth: {
         ...prevState.auth,
         name: obj.name,
         key: obj.key
-      }
+      }, 
+      role: role
     }));
+
+    saveAuth(obj, role);
   }
 
   render() {
@@ -32,14 +45,16 @@ class App extends React.Component<Record<string, never>, { auth: Auth, level: nu
       <div id='app'>
         <BrowserRouter>
           <Sidebar />
-          <Routes>
-            {this.state.auth.name === "" ?
-              (<Route path='/' element={<SignIn updateAuth={this.updateAuth} />} />) :
-              (<Route path='/' element={<Home auth={this.state.auth} />} />)}
+          <div id='page'>
+            <Routes>
+              {this.state.auth.name === "" ?
+                (<Route path='/' element={<SignIn updateAuth={this.updateAuth} />} />) :
+                (<Route path='/' element={<Home auth={this.state.auth} role={this.state.role} />} />)}
 
 
-            <Route path='*' element={<MissingPage />} />
-          </Routes>
+              <Route path='*' element={<MissingPage />} />
+            </Routes>
+          </div>
         </BrowserRouter>
       </div>
     )

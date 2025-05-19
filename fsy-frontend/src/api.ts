@@ -3,12 +3,12 @@ async function getResponse(path: string, auth: Auth): Promise<string> {
   try {
     const response = await fetch(url + path, {
       headers: {
-        User: auth.name,
-        ApiKey: auth.key,
+        "Account-Auth-Account": auth.name,
+        "Account-Auth-ApiKey": auth.key,
       },
     });
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      throw new Error(`Response error: ${response.status}`);
     }
 
     return await response.text();
@@ -28,8 +28,8 @@ async function postResponse(path: string, obj: any, auth: Auth | null): Promise<
         body: JSON.stringify(obj),
         headers: {
           "Content-Type": "application/json",
-          User: auth.name,
-          ApiKey: auth.key,
+          "Account-Auth-Account": auth.name,
+          "Account-Auth-ApiKey": auth.key,
         },
       });
     } else {
@@ -58,8 +58,8 @@ async function patchResponse(path: string, auth: Auth): Promise<string> {
     const response = await fetch(url + path, {
       method: "PATCH",
       headers: {
-        User: auth.name,
-        ApiKey: auth.key,
+        "Account-Auth-Account": auth.name,
+        "Account-Auth-ApiKey": auth.key,
       },
     });
     if (!response.ok) {
@@ -75,4 +75,18 @@ async function patchResponse(path: string, auth: Auth): Promise<string> {
 
 export async function signIn(user: string, pass: string): Promise<string> {
   return await postResponse("/signin", { User: user, Pass: pass }, null);
+}
+
+export async function getRole(auth: Auth): Promise<number> {
+  const response = await getResponse("/valid", auth);
+  const number = Number.parseInt(response);
+  console.log(response);
+  console.log(number);
+  if (isNaN(number)) return 0;
+
+  return number;
+}
+
+export async function isValid(auth: Auth): Promise<boolean> {
+  return await getResponse("/valid", auth) !== "";
 }
