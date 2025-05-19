@@ -1,0 +1,29 @@
+@Accounts = https://localhost:7163/api
+@user = admin
+@key = GMeR9IJr6!cB3zfok48A
+
+###
+GET {{Accounts}}/valid
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+POST {{Accounts}}/signin
+Content-Type: application/json
+{
+  "User": "{{user}}", 
+  "Pass": "asdf"
+}
+###
+POST {{Accounts}}/signin/create?accountName=Cody
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+PATCH {{Accounts}}/signin/update?newPassword=lorem
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+POST {{Accounts}}/signin/reset?user=Cody
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+
+

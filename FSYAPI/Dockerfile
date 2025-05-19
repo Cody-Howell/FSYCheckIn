@@ -3,4 +3,4 @@ WORKDIR /TTA
 COPY . ./
 RUN dotnet publish -c Release -o out
 WORKDIR /TTA/out
-ENTRYPOINT ["dotnet", "TemplateAPI.dll"]
+ENTRYPOINT ["dotnet", "FSYAPI.dll"]
