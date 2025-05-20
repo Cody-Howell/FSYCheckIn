@@ -44,6 +44,25 @@ public static class AccountEndpoints {
 
             return Results.BadRequest("You are not an admin.");
         });
+        app.MapGet("/api/users", (HttpContext context, AuthService service) => {
+            string username = context.Request.Headers["Account-Auth-Account"]!;
+
+            if (IsAdmin(service, username)) {
+                return Results.Ok(service.GetAllUsers());
+            }
+
+            return Results.BadRequest("You are not an admin.");
+        });
+        app.MapGet("/api/user/delete", (HttpContext context, AuthService service, string user) => {
+            string username = context.Request.Headers["Account-Auth-Account"]!;
+
+            if (IsAdmin(service, username)) {
+                service.DeleteUser(user);
+                return Results.Ok();
+            }
+
+            return Results.BadRequest("You are not an admin.");
+        });
 
         return app;
     }

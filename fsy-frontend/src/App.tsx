@@ -5,6 +5,8 @@ import { SignIn } from './components/SignIn'
 import { Home } from './components/Home'
 import { getRole, isValid } from './api'
 import { getSavedAuth, saveAuth } from './pers'
+import { Account } from './components/Account'
+import { CSVImport } from './components/CSVImport'
 
 class App extends React.Component<Record<string, never>, { auth: Auth, role: number }> {
   constructor(props: Record<string, never>) {
@@ -14,7 +16,7 @@ class App extends React.Component<Record<string, never>, { auth: Auth, role: num
         name: "",
         key: ""
       },
-      role: 0
+      role: -1
     }
   }
 
@@ -33,7 +35,7 @@ class App extends React.Component<Record<string, never>, { auth: Auth, role: num
         ...prevState.auth,
         name: obj.name,
         key: obj.key
-      }, 
+      },
       role: role
     }));
 
@@ -44,12 +46,21 @@ class App extends React.Component<Record<string, never>, { auth: Auth, role: num
     return (
       <div id='app'>
         <BrowserRouter>
-          <Sidebar />
+          <Sidebar role={this.state.role} />
           <div id='page'>
             <Routes>
               {this.state.auth.name === "" ?
                 (<Route path='/' element={<SignIn updateAuth={this.updateAuth} />} />) :
-                (<Route path='/' element={<Home auth={this.state.auth} role={this.state.role} />} />)}
+                (<>
+                  <Route path='/' element={<Home auth={this.state.auth} role={this.state.role} />} />
+                  <Route path='/account' element={<Account auth={this.state.auth} role={this.state.role} />} />
+                </>)}
+
+              {this.state.role >= 1 && (
+                <>
+                  <Route path='/admin/import' element={<CSVImport />} />
+                </>
+              )}
 
 
               <Route path='*' element={<MissingPage />} />
@@ -61,11 +72,16 @@ class App extends React.Component<Record<string, never>, { auth: Auth, role: num
   }
 }
 
-class Sidebar extends React.Component {
+class Sidebar extends React.Component<{ role: number }, Record<string, never>> {
   render() {
     return (
       <div id='sidebar'>
-        <Link to="/">Home</Link>
+        <Link to="/">Home</Link> <br />
+        {this.props.role >= 0 && (
+          <>
+            <Link to="/account">Account</Link> <br />
+          </>
+        )}
       </div>
     )
   }

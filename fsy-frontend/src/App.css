@@ -28,3 +28,9 @@ html {
 #page {
   padding-left: 10px;
 }
+
+.accountDisplay {
+  max-width: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

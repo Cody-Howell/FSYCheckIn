@@ -90,3 +90,15 @@ export async function getRole(auth: Auth): Promise<number> {
 export async function isValid(auth: Auth): Promise<boolean> {
   return await getResponse("/valid", auth) !== "";
 }
+
+export async function getAllUsers(auth: Auth): Promise<Array<AccountType>> {
+  return JSON.parse(await getResponse("/users", auth));
+}
+
+export async function deleteUser(user: string, auth: Auth): Promise<void> {
+  await getResponse(`/user/delete?user=${user}`, auth);
+}
+
+export async function resetPassword(user: string, auth: Auth): Promise<void> {
+  await postResponse(`/signin/reset?user=${user}`, {}, auth);
+}
