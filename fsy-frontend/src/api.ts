@@ -73,6 +73,7 @@ async function patchResponse(path: string, auth: Auth): Promise<string> {
   }
 }
 
+//#region Account
 export async function signIn(user: string, pass: string): Promise<string> {
   return await postResponse("/signin", { User: user, Pass: pass }, null);
 }
@@ -95,10 +96,19 @@ export async function getAllUsers(auth: Auth): Promise<Array<AccountType>> {
   return JSON.parse(await getResponse("/users", auth));
 }
 
+export async function addUser(user: string, auth: Auth): Promise<void> {
+  await postResponse(`/signin/create?accountName=${user}`, {}, auth);
+}
+
 export async function deleteUser(user: string, auth: Auth): Promise<void> {
   await getResponse(`/user/delete?user=${user}`, auth);
+}
+
+export async function changePassword(newPassword: string, auth: Auth): Promise<void> {
+  await patchResponse(`/signin/update?newPassword=${newPassword}`, auth);
 }
 
 export async function resetPassword(user: string, auth: Auth): Promise<void> {
   await postResponse(`/signin/reset?user=${user}`, {}, auth);
 }
+//#endregion

@@ -25,8 +25,6 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapGet("/", () => Results.File("index.html"));
-
 app.MapGet("/api/health", () => "Hello");
 
 // Add new endpoints here
@@ -37,7 +35,8 @@ app.MapFallbackToFile("index.html");
 app.Run();
 
 public class IDMiddlewareConfig : IIDMiddlewareConfig {
-    public List<string> Paths => ["/", "/api/health", "/api/signin", "/api/signin/create"];
+    public List<string> Paths => ["/api/health", "/api/signin"];
+    public string? Whitelist => "/api";
     public TimeSpan? ExpirationDate => null;
     public TimeSpan? ReValidationDate => null;
 }

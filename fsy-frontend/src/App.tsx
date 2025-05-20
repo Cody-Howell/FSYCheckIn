@@ -53,7 +53,7 @@ class App extends React.Component<Record<string, never>, { auth: Auth, role: num
                 (<Route path='/' element={<SignIn updateAuth={this.updateAuth} />} />) :
                 (<>
                   <Route path='/' element={<Home auth={this.state.auth} role={this.state.role} />} />
-                  <Route path='/account' element={<Account auth={this.state.auth} role={this.state.role} />} />
+                  <Route path='/account' element={<Account auth={this.state.auth} role={this.state.role} updateAuth={this.updateAuth} />} />
                 </>)}
 
               {this.state.role >= 1 && (

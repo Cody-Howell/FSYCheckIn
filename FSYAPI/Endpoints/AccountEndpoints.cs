@@ -56,7 +56,7 @@ public static class AccountEndpoints {
         app.MapGet("/api/user/delete", (HttpContext context, AuthService service, string user) => {
             string username = context.Request.Headers["Account-Auth-Account"]!;
 
-            if (IsAdmin(service, username)) {
+            if (user != username && IsAdmin(service, username)) {
                 service.DeleteUser(user);
                 return Results.Ok();
             }

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AccountAuthenticator" Version="0.8.2" />
+    <PackageReference Include="AccountAuthenticator" Version="0.8.4" />
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
   </ItemGroup>
