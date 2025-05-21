@@ -11,7 +11,7 @@ POST {{Attendee}}/week?weekName=S25%20Week%201
 Account-Auth-Account: {{user}}
 Account-Auth-ApiKey: {{key}}
 ###
-GET {{Attendee}}/week/people?weekId=2
+GET {{Attendee}}/week/people?weekId=4
 Account-Auth-Account: {{user}}
 Account-Auth-ApiKey: {{key}}
 ###
@@ -21,7 +21,7 @@ Account-Auth-ApiKey: {{key}}
 Content-Type: application/json
 [
   {
-    "WeekRef": 2,
+    "fsyWeek": 2,
     "GivenNames": "Toby",
     "Surnames": "Someone",
     "ApartmentComplex": "PP",
@@ -29,7 +29,7 @@ Content-Type: application/json
     "FSYSession": "A"
   },
   {
-    "WeekRef": 2,
+    "fsyWeek": 2,
     "GivenNames": "Sam",
     "Surnames": "Else",
     "ApartmentComplex": "SG",

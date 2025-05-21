@@ -15,3 +15,14 @@ type FSYWeek = {
   id: number,
   weekName: string
 };
+
+type FSYAttendee = {
+  id?: number,
+  fsyWeek: number,
+  givenNames: string,
+  surnames: string,
+  apartmentComplex: string,
+  apartmentKey: string,
+  fsySession: string,
+  checkedIn?: boolean
+};

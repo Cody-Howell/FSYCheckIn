@@ -126,4 +126,9 @@ export async function getReport(path: string, id: number, auth: Auth): Promise<s
   return await getResponse(combinedPath, auth);
 }
 //#endregion
+//#region Attendees
+export async function addAllPeople(attendees: Array<FSYAttendee>, auth: Auth): Promise<void> {
+  await postResponse("/week/people", attendees, auth);
+}
+//#endregion
 

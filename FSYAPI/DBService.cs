@@ -30,7 +30,7 @@ public class DBService(IDbConnection conn) {
     public void AddAllAttendees(List<Attendee> people) {
         string addPeople = """"
                 insert into fsy_attendee (fsyWeek, givenNames, surnames, apartmentComplex, apartmentKey, fsySession, checkedIn) values 
-                (@weekRef, @givenNames, @surnames, @apartmentComplex, @apartmentKey, @fsySession, false)
+                (@fsyWeek, @givenNames, @surnames, @apartmentComplex, @apartmentKey, @fsySession, false)
                 """";
         conn.Execute(addPeople, people);
     }

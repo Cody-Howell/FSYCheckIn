@@ -20,7 +20,6 @@ export class AdminWeekViewer extends React.Component<AdminWeekViewerProps, { cur
 
   queryCurrentWeeks = async (): Promise<void> => {
     const weeks = await getAllWeeks(this.props.auth);
-
     this.setState({ currentWeeks: weeks });
   }
 
@@ -63,8 +62,8 @@ export class AdminWeekViewer extends React.Component<AdminWeekViewerProps, { cur
         {this.state.currentWeeks.map((value, index) => (
           <div className='weekViewerDisplay' key={index}>
             <p>Name: {value.weekName}</p>
-            <button onDoubleClick={() => this.downloadReport("/week/report", value.id) }>Download CSV (double-click)</button>
-            <button onDoubleClick={() => this.downloadReport("/week/report/logs", value.id) }>Download Logs (double-click)</button>
+            <button onDoubleClick={() => this.downloadReport("/week/report", value.id)}>Download CSV (double-click)</button>
+            <button onDoubleClick={() => this.downloadReport("/week/report/logs", value.id)}>Download Logs (double-click)</button>
           </div>
         ))}
       </div>

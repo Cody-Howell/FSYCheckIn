@@ -43,3 +43,8 @@ html {
   width: 80%;
   grid-template-columns: 1fr 125px 125px;
 }
+
+.infoDisplay {
+  display: flex;
+  gap: 20px;
+}
