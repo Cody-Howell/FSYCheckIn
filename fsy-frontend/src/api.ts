@@ -112,3 +112,18 @@ export async function resetPassword(user: string, auth: Auth): Promise<void> {
   await postResponse(`/signin/reset?user=${user}`, {}, auth);
 }
 //#endregion
+//#region Weeks
+export async function getAllWeeks(auth: Auth): Promise<Array<FSYWeek>> {
+  return JSON.parse(await getResponse("/week", auth)); 
+}
+
+export async function postNewWeek(name: string, auth: Auth): Promise<void> {
+  await postResponse(`/week?weekName=${name}`, {}, auth);
+}
+
+export async function getReport(path: string, id: number, auth: Auth): Promise<string> {
+  const combinedPath = path + `?weekId=${id}`;
+  return await getResponse(combinedPath, auth);
+}
+//#endregion
+

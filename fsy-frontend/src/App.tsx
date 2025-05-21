@@ -7,6 +7,7 @@ import { getRole, isValid } from './api'
 import { getSavedAuth, saveAuth } from './pers'
 import { Account } from './components/Account'
 import { CSVImport } from './components/CSVImport'
+import { AdminWeekViewer } from './components/AdminWeekViewer'
 
 class App extends React.Component<Record<string, never>, { auth: Auth, role: number }> {
   constructor(props: Record<string, never>) {
@@ -58,10 +59,10 @@ class App extends React.Component<Record<string, never>, { auth: Auth, role: num
 
               {this.state.role >= 1 && (
                 <>
-                  <Route path='/admin/import' element={<CSVImport />} />
+                  <Route path='/admin/weeks' element={<AdminWeekViewer auth={this.state.auth} role={this.state.role} />} />
+                  <Route path='/admin/import' element={<CSVImport auth={this.state.auth} role={this.state.role} />} />
                 </>
               )}
-
 
               <Route path='*' element={<MissingPage />} />
             </Routes>
@@ -80,6 +81,13 @@ class Sidebar extends React.Component<{ role: number }, Record<string, never>> {
         {this.props.role >= 0 && (
           <>
             <Link to="/account">Account</Link> <br />
+          </>
+        )}
+        {this.props.role >= 1 && (
+          <>
+            <hr/>
+            <Link to="/admin/weeks">Weeks</Link> <br />
+            <Link to="/admin/import">CSV Import</Link> <br />
           </>
         )}
       </div>

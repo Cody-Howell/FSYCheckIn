@@ -28,7 +28,8 @@ app.UseRouting();
 app.MapGet("/api/health", () => "Hello");
 
 // Add new endpoints here
-app.AddAccountEndpoints();
+app.AddAccountEndpoints()
+    .AddAttendeeEndpoints();
 
 app.MapFallbackToFile("index.html");
 

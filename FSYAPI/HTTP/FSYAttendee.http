@@ -1,0 +1,52 @@
+@Attendee = https://localhost:7163/api
+@user = admin
+@key = G0hOFAXMQiEe6loD7U8L
+
+###
+GET {{Attendee}}/week
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+POST {{Attendee}}/week?weekName=S25%20Week%201
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+GET {{Attendee}}/week/people?weekId=2
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+POST {{Attendee}}/week/people
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+Content-Type: application/json
+[
+  {
+    "WeekRef": 2,
+    "GivenNames": "Toby",
+    "Surnames": "Someone",
+    "ApartmentComplex": "PP",
+    "ApartmentKey": "G35",
+    "FSYSession": "A"
+  },
+  {
+    "WeekRef": 2,
+    "GivenNames": "Sam",
+    "Surnames": "Else",
+    "ApartmentComplex": "SG",
+    "ApartmentKey": "A6",
+    "FSYSession": "B"
+  }
+]
+###
+POST {{Attendee}}/week/checkIn?attendee=1&checkedIn=false
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+GET {{Attendee}}/week/report?weekId=1
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+###
+GET {{Attendee}}/week/report/logs?weekId=1
+Account-Auth-Account: {{user}}
+Account-Auth-ApiKey: {{key}}
+

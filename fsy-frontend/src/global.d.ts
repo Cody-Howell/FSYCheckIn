@@ -10,3 +10,8 @@ type AccountType = {
   displayName: string | null,
   role: number
 };
+
+type FSYWeek = {
+  id: number,
+  weekName: string
+};

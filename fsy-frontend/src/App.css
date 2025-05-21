@@ -13,7 +13,7 @@ html {
 #app {
   display: grid;
   height: 100vh;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 120px 1fr;
 }
 
 #sidebar {
@@ -22,7 +22,9 @@ html {
   align-items: center;
 }
 #sidebar a {
-  color: white;
+  color: #fff;
+  padding: 0 5px;
+  display: block;
 }
 
 #page {
@@ -33,4 +35,11 @@ html {
   max-width: 500px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.weekViewerDisplay {
+  display: grid;
+  max-width: 600px;
+  width: 80%;
+  grid-template-columns: 1fr 125px 125px;
 }
