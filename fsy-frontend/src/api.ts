@@ -89,7 +89,7 @@ export async function getRole(auth: Auth): Promise<number> {
 }
 
 export async function isValid(auth: Auth): Promise<boolean> {
-  return await getResponse("/valid", auth) !== "";
+  return (await getResponse("/valid", auth)) !== "";
 }
 
 export async function getAllUsers(auth: Auth): Promise<Array<AccountType>> {
@@ -114,7 +114,7 @@ export async function resetPassword(user: string, auth: Auth): Promise<void> {
 //#endregion
 //#region Weeks
 export async function getAllWeeks(auth: Auth): Promise<Array<FSYWeek>> {
-  return JSON.parse(await getResponse("/week", auth)); 
+  return JSON.parse(await getResponse("/week", auth));
 }
 
 export async function postNewWeek(name: string, auth: Auth): Promise<void> {
@@ -130,5 +130,12 @@ export async function getReport(path: string, id: number, auth: Auth): Promise<s
 export async function addAllPeople(attendees: Array<FSYAttendee>, auth: Auth): Promise<void> {
   await postResponse("/week/people", attendees, auth);
 }
-//#endregion
 
+export async function changePerson(id: number, to: boolean, auth: Auth): Promise<void> {
+  await postResponse(`/week/checkIn?attendee=${id}&checkedIn=${to ? "true" : "false"}`, {}, auth);
+}
+
+export async function getWeek(weekId: number, auth: Auth): Promise<Array<FSYAttendee>> {
+  return JSON.parse(await getResponse(`/week/people?weekId=${weekId}`, auth));
+}
+//#endregion

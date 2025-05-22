@@ -92,7 +92,7 @@ export class CSVImport extends React.Component<CSVImportProps, CSVImportState> {
 
     await addAllPeople(people, this.props.auth);
 
-    this.setState({error: ""});
+    this.setState({ error: "" });
   }
   //#endregion
 
@@ -123,7 +123,7 @@ export class CSVImport extends React.Component<CSVImportProps, CSVImportState> {
         {this.state.selectedWeek !== undefined && (
           <>
             <p>Upload a file or paste in a CSV file here.</p>
-            <input type='file' accept='.csv,.txt' onChange={this.updateFileSelection} /> <br />
+            <input type='file' accept='.csv,.txt' onChange={this.updateFileSelection} /> <br /> <br />
             <textarea value={this.state.csvValue} onChange={this.updateTextarea} /> <br />
 
             <label htmlFor='givenNames'>Given Names: </label>
@@ -155,7 +155,8 @@ export class CSVImport extends React.Component<CSVImportProps, CSVImportState> {
             <hr />
 
             <h2>Sample Info</h2>
-            <p>Given your results from above, check that it's going to upload properly here. </p>
+            <p>Given your results from above, check that it's going to upload properly here. This takes the first 5 rows 
+              from your table and shows you what information I'm reading from them.  </p>
             {uniqueApts.length > 0 && (<p>Unique Apartments found: {uniqueApts.join(',')}</p>)}
             {sampleInfo.map((value, i) => {
               const line: Array<string> = value.split(',');
@@ -170,7 +171,7 @@ export class CSVImport extends React.Component<CSVImportProps, CSVImportState> {
               )
             })}
 
-            {this.state.error !== "" && (<p style={{color: "red"}}>{this.state.error}</p>)}
+            {this.state.error !== "" && (<p style={{ color: "red" }}>{this.state.error}</p>)}
             <button onDoubleClick={this.uploadAttendees}>Submit (double-click)</button>
           </>
         )}
