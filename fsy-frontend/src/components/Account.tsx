@@ -71,6 +71,7 @@ export class Account extends React.Component<{ auth: Auth, role: number, updateA
     return (
       <div>
         <h1>Account</h1>
+        <p>You are signed in as: {this.props.auth.name}</p>
         <p>Change your password here.</p>
         <form onSubmit={this.changePassword}>
           <label>New password: </label>
