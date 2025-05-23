@@ -1,4 +1,4 @@
-@Attendee = https://localhost:7163/api
+@Attendee = https://localhost:4120/api
 @user = admin
 @key = G0hOFAXMQiEe6loD7U8L
 

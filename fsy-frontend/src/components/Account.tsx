@@ -1,11 +1,12 @@
 import React, { FormEvent } from 'react';
-import { addUser, changePassword, deleteUser, getAllUsers, resetPassword } from '../api';
+import { addUser, changePassword, deleteUser, getAllUsers, resetPassword, updateRole } from '../api';
 
-export class Account extends React.Component<{ auth: Auth, role: number, updateAuth: Function }, { users: Array<AccountType> }> {
+export class Account extends React.Component<{ auth: Auth, role: number, updateAuth: Function }, { users: Array<AccountType>, error: string }> {
   constructor(props: { auth: Auth, role: number, updateAuth: Function }) {
     super(props);
     this.state = {
-      users: []
+      users: [],
+      error: ""
     }
   }
 
@@ -24,6 +25,12 @@ export class Account extends React.Component<{ auth: Auth, role: number, updateA
     e.preventDefault();
 
     const nP = (document.getElementById('new-password') as HTMLInputElement).value;
+    const npA = (document.getElementById('new-password-validate') as HTMLInputElement).value;
+
+    if (nP !== npA) {
+      this.setState({ error: "Passwords don't match." });
+      return;
+    }
 
     await changePassword(nP, this.props.auth);
     window.location.reload();
@@ -47,9 +54,17 @@ export class Account extends React.Component<{ auth: Auth, role: number, updateA
     await this.getAllUsers();
   }
 
+  updateUser = async (id: number, role: number): Promise<void> => {
+    await updateRole(id, role === 1 ? true : false, this.props.auth);
+    window.location.reload();
+  }
+
   signOut = (): void => {
     this.props.updateAuth({ name: "", key: "" });
-    window.location.reload();
+    
+    const a = document.createElement('a');
+    a.href = "/";
+    a.click();
   }
 
   render() {
@@ -58,9 +73,13 @@ export class Account extends React.Component<{ auth: Auth, role: number, updateA
         <h1>Account</h1>
         <p>Change your password here.</p>
         <form onSubmit={this.changePassword}>
-          <input type='password' id='new-password' autoComplete='fsy-check-in new-password' />
+          <label>New password: </label>
+          <input type='password' id='new-password' autoComplete='fsy-check-in new-password' /> <br />
+          <label>New password (again): </label>
+          <input type='password' id='new-password-validate' autoComplete='fsy-check-in new-password' /> <br />
           <button type='submit'>Update Password</button>
         </form>
+        {this.state.error !== "" && (<p style={{backgroundColor: "red"}}>{this.state.error}</p>)}
         <button onDoubleClick={this.signOut}>Sign Out (double-click)</button>
         <hr />
 
@@ -76,7 +95,10 @@ export class Account extends React.Component<{ auth: Auth, role: number, updateA
               <div className='accountDisplay' key={index}>
                 <p>{value.accountName}</p>
                 <button onDoubleClick={() => this.resetPassword(value.accountName)}>Reset Password (double-click)</button>
-                <button onDoubleClick={() => this.deleteUser(value.accountName)}>Delete User (double-click)</button>
+                <button onDoubleClick={() => this.deleteUser(value.accountName)} style={{backgroundColor: "darkred"}}>Delete User (double-click)</button>
+                <button onDoubleClick={() => this.updateUser(value.id, value.role)} style={{backgroundColor: "darkgreen"}}>
+                  {value.role === 1 ? "Change to User (double-click)" : "Change to Admin (double-click)"}</button>
+                
               </div>
             ))}
           </>

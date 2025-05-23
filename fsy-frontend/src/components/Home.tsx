@@ -67,6 +67,14 @@ export class Home extends React.Component<HomeProps, HomeState> {
 
   updateCheckInStatus = async (id: number, to: boolean): Promise<void> => {
     await changePerson(id, to, this.props.auth);
+
+    const people = this.state.people;
+    const pIndex = people.findIndex((v) => v.id === id);
+
+    if (pIndex === -1) throw new Error("Should never get here.");
+
+    people[pIndex].checkedIn = to;
+    this.setState({people: people});
   }
 
   toggleSearch = (): void => {
@@ -85,8 +93,14 @@ export class Home extends React.Component<HomeProps, HomeState> {
       people = people.filter((v) => v.apartmentComplex === this.state.chosenApartment);
     }
 
+    const count = people.filter((v) => v.checkedIn).length;
+    const totalPercent = Math.round(count / people.length * 100);
+
     // Filter by string
-    people = people.filter((v) => v.givenNames.includes(this.state.filterString) || v.surnames.includes(this.state.filterString));
+    people = people.filter((v) => v.givenNames.toLowerCase().includes(this.state.filterString.toLowerCase()) || 
+      v.surnames.toLowerCase().includes(this.state.filterString.toLowerCase()));
+
+    
     return (
       <div>
         <h1>Home</h1>
@@ -101,8 +115,9 @@ export class Home extends React.Component<HomeProps, HomeState> {
 
         <button onDoubleClick={this.queryPeople}>Refresh (double-click)</button> 
         <br/>
+        <p>Total percent checked in: {totalPercent}%</p>
         <label htmlFor='searchFilter'>Search</label>
-        <input type='text' name='searchFilter' onChange={(e) => this.updateFilter(e.target.value)} />
+        <input type='text' name='searchFilter' onChange={(e) => this.updateFilter(e.target.value)} value={this.state.filterString}/>
         <button onClick={() => this.updateFilter("")}>Clear</button>
         <br/>
         <label htmlFor='aptSelection'>Apartment Selection: </label>

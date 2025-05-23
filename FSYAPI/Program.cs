@@ -19,6 +19,8 @@ builder.Services.AddSingleton<IIDMiddlewareConfig, IDMiddlewareConfig>();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
 app.UseMiddleware<IdentityMiddleware>();
 
 app.UseDefaultFiles();

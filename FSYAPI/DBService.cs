@@ -6,6 +6,15 @@ using System.Xml.Linq;
 namespace TemplateAPI;
 
 public class DBService(IDbConnection conn) {
+    public void UpdateRole(int id, int newRole) {
+        string updateRole = """"
+            update "HowlDev.User"
+                set role = @newRole
+                where id = @id
+            """";
+        conn.Execute(updateRole, new { id, newRole });
+    }
+
     public IEnumerable<FSYWeek> GetAllWeeks() {
         string getWeeks = """"
             select * from fsy_week;
@@ -29,9 +38,9 @@ public class DBService(IDbConnection conn) {
 
     public void AddAllAttendees(List<Attendee> people) {
         string addPeople = """"
-                insert into fsy_attendee (fsyWeek, givenNames, surnames, apartmentComplex, apartmentKey, fsySession, checkedIn) values 
-                (@fsyWeek, @givenNames, @surnames, @apartmentComplex, @apartmentKey, @fsySession, false)
-                """";
+            insert into fsy_attendee (fsyWeek, givenNames, surnames, apartmentComplex, apartmentKey, fsySession, checkedIn) values 
+            (@fsyWeek, @givenNames, @surnames, @apartmentComplex, @apartmentKey, @fsySession, false)
+            """";
         conn.Execute(addPeople, people);
     }
 

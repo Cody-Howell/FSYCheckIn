@@ -92,7 +92,9 @@ export class CSVImport extends React.Component<CSVImportProps, CSVImportState> {
 
     await addAllPeople(people, this.props.auth);
 
-    this.setState({ error: "" });
+    const a = document.createElement('a');
+    a.href = "/";
+    a.click();
   }
   //#endregion
 
@@ -158,7 +160,7 @@ export class CSVImport extends React.Component<CSVImportProps, CSVImportState> {
             <p>Given your results from above, check that it's going to upload properly here. This takes the first 5 rows 
               from your table and shows you what information I'm reading from them.  </p>
             {uniqueApts.length > 0 && (<p>Unique Apartments found: {uniqueApts.join(',')}</p>)}
-            {sampleInfo.map((value, i) => {
+            {sampleInfo.map((value) => {
               const line: Array<string> = value.split(',');
               return (
                 <div className='infoDisplay'>

@@ -111,6 +111,10 @@ export async function changePassword(newPassword: string, auth: Auth): Promise<v
 export async function resetPassword(user: string, auth: Auth): Promise<void> {
   await postResponse(`/signin/reset?user=${user}`, {}, auth);
 }
+
+export async function updateRole(id: number, admin: boolean, auth: Auth): Promise<void> {
+  await postResponse(`/user/admin?id=${id}&admin=${admin ? "false" : "true"}`, {}, auth);
+}
 //#endregion
 //#region Weeks
 export async function getAllWeeks(auth: Auth): Promise<Array<FSYWeek>> {

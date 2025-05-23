@@ -9,21 +9,21 @@ services:
      POSTGRES_DB: fsyAPIdb
    volumes:
      - ./sql:/docker-entrypoint-initdb.d
-    #  - ./dbdata:/var/lib/postgresql/data
-   ports:
-     - 5432:5432
+     - ./dbdata:/var/lib/postgresql/data
+  #  ports:
+  #    - 5432:5432
    # command: ["postgres", "-c", "log_statement=all"] # Enables verbose logging
 
     
-  # api:  
-  #   build: 
-  #     context: ./FSYAPI
-  #   restart: always
-  #   environment:
-  #     - DOTNET_DATABASE_STRING=Host=db;Database=fsyAPIdb;Username=cody;Password=123456abc;
-  #   depends_on:
-  #     - db
-  #   ports:
-  #     - 4120:8080
+  api:  
+    build: 
+      context: ./FSYAPI
+    restart: always
+    environment:
+      - DOTNET_DATABASE_STRING=Host=db;Database=fsyAPIdb;Username=cody;Password=123456abc;
+    depends_on:
+      - db
+    ports:
+      - 4120:8080
 
 
