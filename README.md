@@ -1,31 +1,10 @@
-# FullStackTemplate
+# FSY Check In
 
-This template serves a default Docker Compose, C# API, and Vite React-TS page. You should definitely rename the
-Vite page (titled templated-react) and is already converted to class React, along with my preferred Vite settings
-for a production build.
+Please read my docs here: (https://wiki.codyhowell.dev/fsycheckin)[https://wiki.codyhowell.dev/fsycheckin]
 
-Make sure to change the build directory path in `vite.config.ts` to go to the C# deployment.
+This uses a fully local-hosted Docker setup for database, API, and frontend. It's a seasonal app that enables you 
+to check in people. It's designed for multiple apartment complexes, where the users of the app have to hand out the 
+keys to those people. There are a few features that attempt to make that quick. 
 
-See [this wiki page](https://wiki.codyhowell.dev/react) for Loadable imports. 
-
-## C# API
-
-Here's a sample EndpointExtension class:
-
-```csharp
-public static class MarkdownEndpointExtension {
-  public static WebApplication AddMarkdownEndpoints(this WebApplication app) {
-    // ...
-
-    return app;
-  }
-}
-```
-
-You'll also need to consider the following: 
-
-- Rename solution
-- Rename project
-- Rename folder
-- Change values in Dockerfile
-- Change connection string/Docker Compose
+For the admins, you can upload files for import and download CSV reports of each week. For security, you can download the 
+logs that were generated to help validate the information in the original CSV. 
